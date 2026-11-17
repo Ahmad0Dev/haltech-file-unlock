@@ -23,7 +23,8 @@
 1. 📩 **التواصل المباشر** — لإرسال الملف وتأكيد توافقه مع الخدمة.
 2. 🤖 **بوت تيليجرام ذاتي الخدمة** — للملفات والخيارات المتاحة عبر البوت، بصورة مؤتمتة وعلى مدار الساعة.
 
-> **📦 اطلب الآن:** https://ahmad0dev.github.io
+> **📦 اطلب الآن:** https://ahmad0dev.github.io  
+> **🤖 أو اطلب الخدمة مباشرة عبر بوت تيليجرام:** https://t.me/Haltech_bot
 
 *نقبل فقط الملفات التي تملكها أو تملك تصريحاً بالوصول إليها. ويجب أن يشمل التصريح الحق في استعادة كلمة المرور أو إزالة الحماية.*
 
@@ -49,6 +50,7 @@
 1. 📩 **Contact us directly** — submit your file and confirm compatibility.
 2. 🤖 **Self-service Telegram bot** — automated, around-the-clock service for supported files and options.
 
-> **📦 Order now:** https://ahmad0dev.github.io
+> **📦 Order now:** https://ahmad0dev.github.io  
+> **🤖 Or order directly through our Telegram bot:** https://t.me/Haltech_bot
 
 *We only accept files you own or are authorized to access. Authorization must cover password recovery or removal of file protection.*
