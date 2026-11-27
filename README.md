@@ -20,12 +20,11 @@
 
 **سريع · سري · على مدار الساعة**
 
-### طرق الطلب
-1. 📩 **التواصل المباشر** — لإرسال الملف وتأكيد توافقه مع الخدمة.
-2. 🤖 **بوت تيليجرام ذاتي الخدمة** — للملفات والخيارات المتاحة عبر البوت، بصورة مؤتمتة وعلى مدار الساعة.
+### طلب الخدمة
 
-> **📦 اطلب الآن:** https://ahmad0dev.github.io  
-> **🤖 أو اطلب الخدمة مباشرة عبر بوت تيليجرام:** https://t.me/Haltech_bot
+**الطلبات تُقدَّم حصريًا عبر بوت تيليجرام** للملفات والخيارات المدعومة.
+
+> **🤖 اطلب الخدمة مباشرة:** https://t.me/Haltech_bot
 
 *نقبل فقط الملفات التي تملكها أو تملك تصريحاً بالوصول إليها. ويجب أن يشمل التصريح الحق في استعادة كلمة المرور أو إزالة الحماية.*
 
@@ -48,11 +47,10 @@
 
 **Fast · Confidential · 24/7**
 
-### How to order
-1. 📩 **Contact us directly** — submit your file and confirm compatibility.
-2. 🤖 **Self-service Telegram bot** — automated, around-the-clock service for supported files and options.
+### Order the service
 
-> **📦 Order now:** https://ahmad0dev.github.io  
-> **🤖 Or order directly through our Telegram bot:** https://t.me/Haltech_bot
+**All orders are placed exclusively through our Telegram bot** for supported files and service options.
+
+> **🤖 Order directly:** https://t.me/Haltech_bot
 
 *We only accept files you own or are authorized to access. Authorization must cover password recovery or removal of file protection.*
