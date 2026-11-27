@@ -14,7 +14,7 @@
 
 ### الملخص
 
-تتناول هذه الورقة البحثية أعمال الهندسة العكسية المتعلقة بملفات وحدات التحكم الإلكترونية (ECU) المشفرة، ولا سيما الملفات المستخدمة في أنظمة إدارة المحركات المخصصة لسيارات الأداء والتعديل. وقد توصلتُ خلال عملي البحثي إلى نتائج في **فك تشفير ملفات ECU مشفرة**، ويقتصر موضوع هذا المستودع على الجانب البحثي المرتبط بتلك الملفات.
+تتناول هذه الورقة البحثية أعمال الهندسة العكسية المتعلقة بملفات وحدات التحكم الإلكترونية (ECU) المشفرة، ولا سيما الملفات المستخدمة في أنظمة إدارة المحركات المخصصة لسيارات الأداء والتعديل. وقد توصلتُ خلال عملي البحثي إلى نتائج في **فك تشفير ملفات ECU مشفرة**، وطوّرت **محركًا برمجيًا مخصصًا لكل فئة من الملفات التي شملها البحث**. يستطيع المحرك التعرف على نوع التشفير ومستوى الحماية وكسر التشفير خلال ثوانٍ للملفات المتوافقة معه. ويقتصر موضوع هذا المستودع على الجانب البحثي المرتبط بتلك الملفات.
 
 الغرض من نشر هذه الصفحة هو التعريف بمجال البحث ونطاقه، وليس الإعلان عن منتجات أو خدمات أو إتاحة أداة عامة لفك التشفير.
 
@@ -39,7 +39,7 @@
 
 ### حالة النتائج وحدود هذا المنشور
 
-لديّ نتائج بحثية تتعلق بفك تشفير ملفات ECU مشفرة ضمن النطاق المذكور. هذه الصفحة **ملخص تعريفي** وليست منشورًا تفصيليًا للخوارزميات أو عينات الملفات أو الاختبارات، ولا تتضمن بيانات تجريبية مستقلة تسمح بتقييم النتائج أو تعميمها على جميع الإصدارات.
+لديّ نتائج بحثية تتعلق بفك تشفير ملفات ECU مشفرة ضمن النطاق المذكور، بما فيها تطوير محركات مخصصة للتعرف على نوع التشفير ومستوى الحماية ومعالجة الملفات المتوافقة في ثوانٍ. هذه الصفحة **ملخص تعريفي** وليست منشورًا تفصيليًا للخوارزميات أو عينات الملفات أو الاختبارات، ولا تتضمن بيانات تجريبية مستقلة تسمح بتقييم النتائج أو تعميمها على جميع الإصدارات.
 
 ### الاستخدام المسؤول وإمكانية مشاركة النتائج
 
@@ -55,7 +55,7 @@
 
 ### Abstract
 
-This research overview addresses reverse engineering of **encrypted Electronic Control Unit (ECU) files**, particularly those used in aftermarket engine-management systems for performance and modified vehicles. Through my research, I have obtained results in the **decryption of certain encrypted ECU files**. The purpose of this repository is to describe the research area and its scope—not to advertise unlocking services or distribute a public decryption tool.
+This research overview addresses reverse engineering of **encrypted Electronic Control Unit (ECU) files**, particularly those used in aftermarket engine-management systems for performance and modified vehicles. Through my research, I have obtained results in the **decryption of certain encrypted ECU files** and developed **a dedicated software engine for each researched file family**. Each engine can identify the encryption type and protection level and break the encryption of compatible files within seconds. The purpose of this repository is to describe the research area and its scope—not to advertise unlocking services or distribute a public decryption tool.
 
 ### Research Scope
 
@@ -78,7 +78,7 @@ These references describe the research scope; **they do not imply coverage of ev
 
 ### Current Findings and Limitations
 
-I have obtained research results involving the decryption of encrypted ECU files within the scope described above. This page is a **research overview**, not a detailed publication of algorithms, sample files, or experimental measurements. It does not provide independently verifiable data or establish universal compatibility across versions.
+I have obtained research results involving the decryption of encrypted ECU files within the scope described above, including dedicated engines that identify encryption types and protection levels and process compatible files in seconds. This page is a **research overview**, not a detailed publication of algorithms, sample files, or experimental measurements. It does not provide independently verifiable data or establish universal compatibility across versions.
 
 ### Responsible Research and Potential Future Disclosure
 
