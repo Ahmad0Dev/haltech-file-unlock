@@ -16,7 +16,7 @@
 
 أبحث في الهندسة العكسية والتحليل البنيوي و**استعادة البيانات من ملفات وحدات التحكم الإلكترونية (ECU) المشفرة**، مع التركيز على أنظمة إدارة المحركات المستقلة المستخدمة في سيارات الأداء والتعديل.
 
-طوّرتُ **محركات برمجية متخصصة بحسب عائلة الملفات** ضمن إطار هندسي مشترك. الهدف هو التعرف آليًا على نوع الملف وخصائص الحماية ومستواها حيث تسمح خصائص العينة بذلك، ثم توجيه الملف المتوافق إلى المحرك المختص لمعالجته وفحص بياناته المستعادة. وبحسب اختباراتي الخاصة، **يمكن معالجة بعض الملفات المتوافقة خلال ثوانٍ**؛ لا يشكّل ذلك ضمانًا لكل ملف أو إصدار، ولا توجد في هذه الصفحة نتائج قياس مستقلة.
+طوّرتُ **محركات برمجية متخصصة بحسب عائلة الملفات** ضمن إطار هندسي مشترك. الهدف هو التعرف آليًا على نوع الملف وخصائص الحماية ومستواها حيث تسمح خصائص العينة بذلك، ثم توجيه الملف المتوافق إلى المحرك المختص لمعالجته وفحص بياناته المستعادة. تتبع معالجة **MoTeC Gold Box** المنهجية العامة المستخدمة في أبحاث **Haltech وMaxxECU**. أما **MoTeC M1 / M1 Tune** فهو المسار الأكثر تعقيدًا: توصلتُ، وفقًا لنتائج بحثي، إلى آلية لتفكيك ملفات M1 واستخراج بياناتها **مطابقةً لمحتوى البيانات الأصلية**، لكن تحليل كل حالة والتحقق منها بالهندسة العكسية قد يتطلب وقتًا إضافيًا. وبحسب اختباراتي الخاصة، **يمكن معالجة بعض الملفات المتوافقة في المسارات الأخرى خلال ثوانٍ**؛ ولا يشكّل ذلك ضمانًا لكل ملف أو إصدار، ولا توجد هنا نتائج قياس مستقلة.
 
 هذه ورقة تعريفية بالأبحاث والقدرات المعمارية، **وليست نشرًا للخوارزميات أو التفاصيل التنفيذية**، ولا تدّعي اجتياز مراجعة علمية محكّمة.
 
@@ -26,10 +26,10 @@
 |---|---|---|
 | **Haltech** | ملفات **NSP** و**ESP** | مسارات معالجة ظهرت في المراجعة الساكنة لحزمة المشروع الخاصة |
 | **MaxxECU** | ملفات المعايرة والإعدادات المشفرة | محرك متخصص ومسار معالجة ظهرا في الحزمة المراجعة |
-| **MoTeC Gold Box** | ملفات المعايرة الخاصة بأنظمة Gold Box | أفيدُ بأن المحرك مبني على **المنهجية العامة نفسها**؛ الشيفرة غير مرفقة |
-| **MoTeC M1 / M1 Tune** | ملفات برمجة ومعايرة M1 Tune | أفيدُ بأن المحرك مبني على **المنهجية العامة نفسها**؛ الشيفرة غير مرفقة |
+| **MoTeC Gold Box** | ملفات المعايرة الخاصة بأنظمة Gold Box | وفقًا لإفادتي، تُطبَّق المنهجية العامة نفسها المستخدمة في Haltech وMaxxECU؛ الشيفرة غير مرفقة |
+| **MoTeC M1 / M1 Tune** | ملفات برمجة ومعايرة M1 Tune | بحسب نتائج بحثي، طُوّرت آلية أكثر تعقيدًا لتفكيك الملف واستخراج بياناته المطابقة للبيانات الأصلية؛ يتطلب التحليل الهندسي وقتًا إضافيًا، والشيفرة غير مرفقة |
 
-**توضيح:** تعتمد محركات **MoTeC Gold Box وMoTeC M1**، وفق إفادتي، على المراحل التحليلية والهندسية العامة نفسها المستخدمة في منظومة البحث، مع اختلاف التنفيذ الخاص بكل صيغة. لم تُقدَّم شيفرتهما للمراجعة، ولا يعني التشابه المعماري تشابه خوارزميات التشفير بين الشركات أو دعم جميع الإصدارات.
+**توضيح:** يستخدم **MoTeC Gold Box**، وفق إفادتي، **المنهجية العامة نفسها** المطبقة في مسارات **Haltech وMaxxECU** مع مراعاة اختلافات الصيغ. في المقابل يُعالج **MoTeC M1 Tune** بوصفه مسارًا بحثيًا أكثر تعقيدًا يتطلب تفكيك بنية الملف وتحليلها واستعادة البيانات الأصلية والتحقق منها؛ وقد يستغرق تنفيذ الهندسة العكسية مدة أطول من المعالجة الروتينية للملفات المتوافقة في المسارات الأخرى. لم تُقدَّم شيفرة محركي MoTeC للمراجعة المستقلة، ولا يعني هذا الوصف تشابه خوارزميات التشفير بين الشركات أو دعم جميع الإصدارات.
 
 ### المعمارية العامة لاستخراج البيانات
 
@@ -54,7 +54,7 @@
 
 يفصل البحث بين ثلاثة مفاهيم: **نوع الملف**، و**خصائص أو مستوى الحماية**، و**سلامة البيانات المستعادة**. معرفة صيغة الملف لا تعني تلقائيًا إمكانية معالجة كل عينة مشفرة منها.
 
-الهدف هو الحفاظ على قيم المعايرة والمعلومات الوظيفية، لكن يجب التفريق بين **التكافؤ البنيوي أو الوظيفي** و**التطابق الثنائي الكامل (byte-for-byte)**: قد يختلف تمثيل الملف بعد تغيير حالة الحماية دون تغير قيم المعايرة. فحوص الاتساق وحدها لا تثبت تطابق جميع القيم بنسبة 100%؛ ويستلزم إثبات ذلك عينات واختبارات ومقارنات موثقة لكل صيغة وإصدار.
+الهدف هو الحفاظ على قيم المعايرة والمعلومات الوظيفية. وفي مسار **MoTeC M1**، أفيدُ بأن آلية التفكيك التي توصلت إليها تتيح استخراج بيانات **مطابقة للبيانات الأصلية** من الملفات التي نجحت معالجتها. ويجب هنا التفريق بين **تطابق بيانات المعايرة المستخرجة** و**التطابق الثنائي الكامل (byte-for-byte)** للحاوية المشفرة: قد يختلف تمثيل الملف بعد استخراج البيانات أو تغيير حالة الحماية دون تغير قيمها. لا تثبت فحوص الاتساق وحدها تطابق جميع القيم بنسبة 100%؛ وإثبات ذلك بصورة مستقلة يتطلب عينات واختبارات ومقارنات موثقة لكل صيغة وإصدار.
 
 يمكن توثيق المقاييس التالية مستقبلًا دون كشف الطريقة: عائلة الملف وإصداره، وعدد العينات المصرّح بها، ومدة المعالجة، وحالات النجاح وعدم التوافق، ونتائج التحقق البنيوي، ومقارنة حقول المعايرة ذات الصلة دون كشف قيمها السرية.
 
@@ -63,6 +63,8 @@
 أحتفظ بتفاصيل التنفيذ باعتبارها معرفة تقنية خاصة. **لن تُنشر في هذا المستودع** الشيفرات أو البرامج التنفيذية أو المفاتيح والثوابت والبصمات الدقيقة أو تفاصيل آليات تجاوز الحماية أو ملفات العملاء أو البرمجيات المملوكة للغير.
 
 تقتصر التجارب على ملفات أملك حق فحصها أو لدي تصريح مناسب بدراستها، مع مراعاة حقوق الملكية الفكرية والتراخيص والعقود والقوانين ذات الصلة.
+
+**للتواصل بشأن الأبحاث والتعاون العلمي أو المؤسسي:** https://ahmad0dev.github.io
 
 **قد أشارك مستقبلًا نتائج أبحاثي والمكونات التي أمتلك حقوقها مع جهات رسمية مختصة أو الشركات المصنّعة أو المؤسسات البحثية المؤهلة**، بعد التحقق من الحقوق اللازمة وبما يلائم اتفاقيات السرية (NDA) أو ترتيبات الترخيص ونقل التقنية. هذه الصفحة **ليست عرضًا تجاريًا ولا قناة لتقديم خدمات فك الملفات**.
 
@@ -74,9 +76,9 @@
 
 My research focuses on reverse engineering, structural analysis, and **data recovery from encrypted Electronic Control Unit (ECU) files**, particularly those used in standalone engine-management systems for performance vehicles.
 
-I have developed **dedicated software engines for individual file families** within a shared engineering framework. The system is designed to identify a file family and observable protection characteristics or levels, select the appropriate engine, process compatible samples, and check the integrity of recovered information.
+I have developed **dedicated software engines for individual file families** within a shared engineering framework. The system is designed to identify a file family and observable protection characteristics or levels, select the appropriate engine, process compatible samples, and check the integrity of recovered information. **MoTeC Gold Box** follows the same high-level methodology applied to **Haltech and MaxxECU** in my research. **MoTeC M1 / M1 Tune is significantly more complex:** I report having identified a mechanism to unpack M1 files and recover their **original calibration data without alteration**, while reverse engineering and verification of individual cases can require additional time.
 
-In my own testing, **certain compatible samples can be processed within seconds**. This is not a guarantee for every file or software version, and no independent benchmark is presented here. This document is a technical research overview, not a peer-reviewed publication or a disclosure of proprietary algorithms.
+In my own testing, **certain compatible files in the other processing paths can be handled within seconds**. This is not a guarantee for every file or software version, and no independent benchmark is presented here. This document is a technical research overview, not a peer-reviewed publication or a disclosure of proprietary algorithms.
 
 ### Researched platforms and files
 
@@ -84,10 +86,10 @@ In my own testing, **certain compatible samples can be processed within seconds*
 |---|---|---|
 | **Haltech** | **NSP** and **ESP** files | Relevant processing paths were found in the privately reviewed archive |
 | **MaxxECU** | Encrypted calibration and configuration files | A dedicated processing path was found in the reviewed archive |
-| **MoTeC Gold Box** | Calibration files associated with Gold Box systems | The researcher reports using **the same high-level methodology**; source code not supplied |
-| **MoTeC M1 / M1 Tune** | M1 Tune calibration files | The researcher reports using **the same high-level methodology**; source code not supplied |
+| **MoTeC Gold Box** | Calibration files associated with Gold Box systems | Researcher-reported use of the same high-level methodology as Haltech and MaxxECU; source code not supplied |
+| **MoTeC M1 / M1 Tune** | M1 Tune calibration files | Researcher-reported, more complex unpacking and recovery of data identical to the original calibration content; reverse engineering takes additional time; source code not supplied |
 
-**Clarification:** According to my account, the **MoTeC Gold Box and M1 engines follow the same overall analytical and processing workflow** used across the research platform, adapted for their respective file structures. Their source code was not made available for this review. Shared architecture does not imply identical encryption methods or universal compatibility.
+**Clarification:** According to my research account, **MoTeC Gold Box** applies the same overall methodology used for **Haltech and MaxxECU**, adapted to the relevant file structure. **MoTeC M1 Tune**, by contrast, involves a more complex reverse-engineering process for unpacking files and recovering the original data; analyzing and verifying an individual case can take additional time. The private MoTeC engine source code was not made available for independent review. These statements do not imply identical encryption methods across manufacturers or universal compatibility.
 
 ### High-level data-recovery architecture
 
@@ -112,7 +114,7 @@ The review **did not run the engines against real calibration samples** or estab
 
 The research distinguishes **file-family identification**, **protection characterization**, and **validation of recovered data**. Recognizing a file format does not by itself prove every protected file can be processed.
 
-Preserving calibration values and achieving **byte-for-byte identity** are different claims. A change in protection or representation may alter file bytes while retaining underlying values. Structural checks do not alone prove 100% preservation of every calibration field. Such a claim requires controlled, reproducible comparisons for defined samples and versions.
+The researcher reports that the **MoTeC M1** unpacking approach can recover data **identical to the original calibration content** for successfully analyzed files. However, preservation of calibration values and **byte-for-byte identity of the encrypted container** are different claims: the file representation may differ while the underlying data remains unchanged. Structural checks alone do not establish 100% preservation of every calibration field; independent substantiation requires controlled, reproducible comparisons for specified samples and versions.
 
 Non-sensitive metrics suitable for future disclosure include file family/version, authorized sample counts, processing duration, successful and unsupported cases, structural verification results, and summaries of relevant calibration-field comparisons without publishing confidential values.
 
@@ -121,6 +123,8 @@ Non-sensitive metrics suitable for future disclosure include file family/version
 Implementation methods remain proprietary. This repository does **not** distribute source code or executable engines, cryptographic secrets, precise indicators, protection-bypass details, protected customer files, or third-party proprietary software.
 
 Research is limited to files I am authorized to examine and must respect intellectual-property rights, licenses, contractual obligations, and applicable law.
+
+**For research correspondence and potential institutional collaboration:** https://ahmad0dev.github.io
 
 **In the future, I may share my findings and technology to which I hold the necessary rights with competent official authorities, manufacturers, or qualified research institutions**, subject to appropriate legal review and, where applicable, NDAs or institutional licensing and technology-transfer arrangements.
 
