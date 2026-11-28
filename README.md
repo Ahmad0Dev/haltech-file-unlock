@@ -1,151 +1,370 @@
-# Encrypted ECU File Research | أبحاث تحليل وفك تشفير ملفات ECU
+<div align="center">
 
-**Independent Technical Research Overview | ملخص بحث تقني مستقل**  
-**Researcher / الباحث:** Ahmed Al-Khaldi — أحمد الخالدي  
-**Updated / آخر تحديث:** 2026-11-28
+# Encrypted ECU File Research
 
-> **بحث فقط، وليس إعلان خدمات.** لا يقدم هذا المستودع خدمة لاستقبال أو فك ملفات العملاء، ولا ينشر المحركات أو طرق تنفيذها أو مفاتيح أو بيانات محمية.
->
-> **Research only; no file-unlocking service is offered.** This repository does not accept customer files and does not publish decryption engines, protection-bypass procedures, keys, or protected data.
+### Reverse Engineering · Encrypted File Analysis · Calibration Data Recovery
 
----
+**أبحاث تحليل وفك تشفير ملفات وحدات التحكم الإلكترونية واستعادة بيانات المعايرة**
 
-## العربية
+**Independent Technical Research Overview · ملخص بحث تقني مستقل**
 
-### الملخص
+[العربية](#arabic) &nbsp;|&nbsp; [English](#english)
 
-أبحث في الهندسة العكسية والتحليل البنيوي و**استعادة البيانات من ملفات وحدات التحكم الإلكترونية (ECU) المشفرة**، مع التركيز على أنظمة إدارة المحركات المستقلة المستخدمة في سيارات الأداء والتعديل.
-
-طوّرتُ **محركات برمجية متخصصة بحسب عائلة الملفات** ضمن إطار هندسي مشترك. الهدف هو التعرف آليًا على نوع الملف وخصائص الحماية ومستواها حيث تسمح خصائص العينة بذلك، ثم توجيه الملف المتوافق إلى المحرك المختص لمعالجته وفحص بياناته المستعادة. تتبع معالجة **MoTeC Gold Box** المنهجية العامة المستخدمة في أبحاث **Haltech وMaxxECU**. أما **MoTeC M1 / M1 Tune** فهو المسار الأكثر تعقيدًا: توصلتُ، وفقًا لنتائج بحثي، إلى آلية لتفكيك ملفات M1 واستخراج بياناتها **مطابقةً لمحتوى البيانات الأصلية**، لكن تحليل كل حالة والتحقق منها بالهندسة العكسية قد يتطلب وقتًا إضافيًا. وبحسب اختباراتي الخاصة، **يمكن معالجة بعض الملفات المتوافقة في المسارات الأخرى خلال ثوانٍ**؛ ولا يشكّل ذلك ضمانًا لكل ملف أو إصدار، ولا توجد هنا نتائج قياس مستقلة.
-
-**قيمة المخرجات:** أؤكد، استنادًا إلى نتائجي البحثية، أن المحركات قادرة على إنتاج ملفات تحتفظ **بـ100% من بيانات المعايرة الأصلية** للعينات المتوافقة التي نجحت معالجتها والتحقق منها، مع إمكانية فتح الملفات الناتجة باستخدام برامج البرمجة الرسمية والاستفادة منها في تفليش وحدات ECU المتوافقة. هذا تأكيد من الباحث على مستوى بيانات المعايرة، وليس ادعاءً بتطابق البايتات أو ضمانًا لجميع الإصدارات والظروف التشغيلية.
-
-هذه ورقة تعريفية بالأبحاث والقدرات المعمارية، **وليست نشرًا للخوارزميات أو التفاصيل التنفيذية**، ولا تدّعي اجتياز مراجعة علمية محكّمة.
-
-### نطاق الملفات
-
-| المنصة | النطاق | مصدر المعلومات |
-|---|---|---|
-| **Haltech** | ملفات **NSP** و**ESP** | مسارات معالجة ظهرت في المراجعة الساكنة لحزمة المشروع الخاصة |
-| **MaxxECU** | ملفات المعايرة والإعدادات المشفرة | محرك متخصص ومسار معالجة ظهرا في الحزمة المراجعة |
-| **MoTeC Gold Box** | ملفات المعايرة الخاصة بأنظمة Gold Box | وفقًا لإفادتي، تُطبَّق المنهجية العامة نفسها المستخدمة في Haltech وMaxxECU؛ الشيفرة غير مرفقة |
-| **MoTeC M1 / M1 Tune** | ملفات برمجة ومعايرة M1 Tune | بحسب نتائج بحثي، طُوّرت آلية أكثر تعقيدًا لتفكيك الملف واستخراج بياناته المطابقة للبيانات الأصلية؛ يتطلب التحليل الهندسي وقتًا إضافيًا، والشيفرة غير مرفقة |
-
-**توضيح:** يستخدم **MoTeC Gold Box**، وفق إفادتي، **المنهجية العامة نفسها** المطبقة في مسارات **Haltech وMaxxECU** مع مراعاة اختلافات الصيغ. في المقابل يُعالج **MoTeC M1 Tune** بوصفه مسارًا بحثيًا أكثر تعقيدًا يتطلب تفكيك بنية الملف وتحليلها واستعادة البيانات الأصلية والتحقق منها؛ وقد يستغرق تنفيذ الهندسة العكسية مدة أطول من المعالجة الروتينية للملفات المتوافقة في المسارات الأخرى. لم تُقدَّم شيفرة محركي MoTeC للمراجعة المستقلة، ولا يعني هذا الوصف تشابه خوارزميات التشفير بين الشركات أو دعم جميع الإصدارات.
-
-### المعمارية العامة لاستخراج البيانات
-
-تتبع المنظومة تصميمًا معياريًا يتيح وجود محرك متخصص لكل فئة مع توحيد إجراءات الإدخال والتشغيل والتحقق:
-
-1. **فحص الإدخال:** التحقق من سلامة الملف وحجمه وبنيته الأولية مع الاحتفاظ بالنسخة المرجعية.
-2. **التصنيف:** تمييز عائلة الملف وحالة الحماية، واختيار المحرك الملائم دون الاعتماد على امتداد الاسم وحده.
-3. **التحليل البنيوي:** توصيف أقسام الملف وعلاقات البيانات ومؤشرات الاتساق بصورة عامة.
-4. **المعالجة المتخصصة:** معالجة العينة المتوافقة لاستعادة بيانات قابلة للتحليل، من خلال آلية ملكية تقنية لا تُنشر تفاصيلها.
-5. **إعادة تمثيل الناتج:** إنشاء مخرجات منسجمة مع متطلبات الصيغة التي جرى تحليلها، حيث يكون ذلك ممكنًا.
-6. **التحقق وإدارة الفشل:** إجراء فحوص سلامة بنيوية، وتمييز النتيجة المقبولة من الملفات غير المدعومة أو حالات الخطأ، وتسجيل حالة المهمة وزمنها.
-
-هذا **وصف وظيفي للمدخلات والمخرجات**، وليس تعليمات لتجاوز الحماية، ولا يكشف وسائل التعرف الدقيقة أو المفاتيح أو الخطوات السرية.
-
-### ما يمكن الإفصاح عنه من مراجعة المشروع
-
-أظهرت **المراجعة الساكنة** لحزمة المشروع المتاحة وجود مسارات برمجية خاصة بـ **Haltech وMaxxECU**، وتشمل تصنيف أنواع الملفات، وفصل مراحل معالجة المدخلات وتجهيز المخرجات، وفحوصًا بنيوية، والتعامل مع حالات الفشل والمهل والملفات المؤقتة.
-
-**حدود الإثبات:** لم تتضمن هذه المراجعة تشغيل المحركات على ملفات معايرة حقيقية أو اختبار التوافق مع جميع إصدارات البرامج الرسمية. ولم تشمل شيفرات محركات MoTeC Gold Box وM1، اللذين أصفهما استنادًا إلى عملي البحثي الخاص.
-
-### التعرف على التشفير وسلامة البيانات
-
-يفصل البحث بين ثلاثة مفاهيم: **نوع الملف**، و**خصائص أو مستوى الحماية**، و**سلامة البيانات المستعادة**. معرفة صيغة الملف لا تعني تلقائيًا إمكانية معالجة كل عينة مشفرة منها.
-
-الهدف هو الحفاظ على قيم المعايرة والمعلومات الوظيفية. وفي مسار **MoTeC M1**، أفيدُ بأن آلية التفكيك التي توصلت إليها تتيح استخراج بيانات **مطابقة للبيانات الأصلية** من الملفات التي نجحت معالجتها. ويجب هنا التفريق بين **تطابق بيانات المعايرة المستخرجة** و**التطابق الثنائي الكامل (byte-for-byte)** للحاوية المشفرة: قد يختلف تمثيل الملف بعد استخراج البيانات أو تغيير حالة الحماية دون تغير قيمها. لا تثبت فحوص الاتساق وحدها تطابق جميع القيم بنسبة 100%؛ وإثبات ذلك بصورة مستقلة يتطلب عينات واختبارات ومقارنات موثقة لكل صيغة وإصدار.
-
-### إعادة إنتاج الملفات والتوافق مع البرامج الرسمية
-
-تتجاوز مهمة المحركات مجرد قراءة محتوى الملف المشفر؛ إذ تتضمن **إعادة إنشاء ملف قابل للاستخدام** وفق البنية التي تتوقعها برامج معايرة ECU الرسمية الخاصة بالمنصات المتوافقة.
-
-**تعهّدي البحثي بشأن الدقة:** أؤكد بقوة أنني أستهدف وأضمن **الحفاظ على بيانات المعايرة الأصلية بنسبة 100% في الملفات المتوافقة التي اجتازت اختبارات المحرك والتحقق**، بما يشمل القيم والجداول والإعدادات التي لم يُقصد تغييرها. ويمكن، وفقًا لنتائجي، فتح المخرجات في برامج البرمجة الأصلية، وتجهيزها لتفليش وحدة ECU المطابقة عبر أدوات الشركة المصنّعة وإجراءاتها المعتادة.
-
-**تفسير الدقة والتوافق:** نسبة 100% هنا تخص **محتوى المعايرة الذي جرى الحفاظ عليه**، ولا تعني أن الملف الناتج مطابق بايتًا ببايت للحاوية المشفرة الأصلية؛ فبيانات الحماية وتغليف الملف قد تختلف. ويعتمد نجاح الفتح والتفليش الفعلي على توافق طراز ECU وإصدارات العتاد والبرامج وصلاحية الملف وإجراءات التحقق الخاصة بالشركة المصنّعة. لم تُقدَّم في هذه الورقة نتائج اختبارات مستقلة تغطي جميع الأنظمة أو تؤكد تفليشًا ناجحًا لكل حالة؛ لذا يجب فحص كل مخرج داخل البرنامج الرسمي والتحقق من مطابقته للوحدة المستهدفة قبل برمجتها.
-
-يمكن توثيق المقاييس التالية مستقبلًا دون كشف الطريقة: عائلة الملف وإصداره، وعدد العينات المصرّح بها، ومدة المعالجة، وحالات النجاح وعدم التوافق، ونتائج التحقق البنيوي، ومقارنة حقول المعايرة ذات الصلة دون كشف قيمها السرية.
-
-### الملكية الفكرية والسرية
-
-أحتفظ بتفاصيل التنفيذ باعتبارها معرفة تقنية خاصة. **لن تُنشر في هذا المستودع** الشيفرات أو البرامج التنفيذية أو المفاتيح والثوابت والبصمات الدقيقة أو تفاصيل آليات تجاوز الحماية أو ملفات العملاء أو البرمجيات المملوكة للغير.
-
-تقتصر التجارب على ملفات أملك حق فحصها أو لدي تصريح مناسب بدراستها، مع مراعاة حقوق الملكية الفكرية والتراخيص والعقود والقوانين ذات الصلة.
-
-**للتواصل بشأن الأبحاث والتعاون العلمي أو المؤسسي:** https://ahmad0dev.github.io
-
-**قد أشارك مستقبلًا نتائج أبحاثي والمكونات التي أمتلك حقوقها مع جهات رسمية مختصة أو الشركات المصنّعة أو المؤسسات البحثية المؤهلة**، بعد التحقق من الحقوق اللازمة وبما يلائم اتفاقيات السرية (NDA) أو ترتيبات الترخيص ونقل التقنية. هذه الصفحة **ليست عرضًا تجاريًا ولا قناة لتقديم خدمات فك الملفات**.
+</div>
 
 ---
 
-## English
+| Research information | Details |
+|:---|:---|
+| **Researcher / الباحث** | **Ahmed Al-Khaldi · أحمد الخالدي** |
+| **Field / المجال** | Automotive ECU file formats, reverse engineering, encrypted calibration data |
+| **Systems examined / الأنظمة** | **Haltech NSP / ESP · MaxxECU · MoTeC Gold Box · MoTeC M1 Tune** |
+| **Publication type / نوع المنشور** | Independent technical research overview; **not peer-reviewed** |
+| **Disclosure / الإفصاح** | Architectural and research-level description; **implementation remains proprietary** |
+| **Last revised / آخر تحديث** | 28 November 2026 |
+| **Research contact / التواصل البحثي** | **[ahmad0dev.github.io](https://ahmad0dev.github.io)** |
 
-### Abstract
+> **Publication notice / تنويه:** This repository documents independent technical research. It does **not** offer file-unlocking services, accept customer files, or distribute decryption tools.  
+> يوثّق هذا المستودع أبحاثًا تقنية مستقلة، ولا يقدّم خدمات فك ملفات، ولا يستقبل ملفات العملاء أو يوزّع أدوات فك التشفير.
 
-My research focuses on reverse engineering, structural analysis, and **data recovery from encrypted Electronic Control Unit (ECU) files**, particularly those used in standalone engine-management systems for performance vehicles.
+---
 
-I have developed **dedicated software engines for individual file families** within a shared engineering framework. The system is designed to identify a file family and observable protection characteristics or levels, select the appropriate engine, process compatible samples, and check the integrity of recovered information. **MoTeC Gold Box** follows the same high-level methodology applied to **Haltech and MaxxECU** in my research. **MoTeC M1 / M1 Tune is significantly more complex:** I report having identified a mechanism to unpack M1 files and recover their **original calibration data without alteration**, while reverse engineering and verification of individual cases can require additional time.
+<a id="arabic"></a>
 
-In my own testing, **certain compatible files in the other processing paths can be handled within seconds**. As the researcher, I strongly affirm that successfully processed and validated compatible outputs can retain **100% of the original calibration data**, reopen in the **official tuning software**, and be used in the **manufacturer's ECU-flashing workflow** for matching hardware and software configurations. This is my research claim about calibration content and tested compatibility—not a claim that reconstructed files are byte-for-byte identical to encrypted originals, or an independently established guarantee for all ECU versions.
+# النسخة العربية
 
-This document is a technical research overview, not a peer-reviewed publication or a disclosure of proprietary algorithms.
+## الملخص البحثي
 
-### Researched platforms and files
+يتناول هذا البحث الهندسة العكسية والتحليل البنيوي لملفات المعايرة الخاصة بوحدات التحكم الإلكترونية في المحركات (**ECU**) عندما تكون مشفرة أو محمية. يركز العمل على تطوير **محركات معالجة متخصصة لكل عائلة ملفات** ضمن معمارية بحثية مشتركة، بهدف تمييز صيغة الملف وخصائص حمايته، واستعادة بيانات المعايرة وإنتاج مخرجات تتوافق مع البرامج الأصلية في الحالات المدعومة.
 
-| Platform | Scope | Evidence status |
-|---|---|---|
-| **Haltech** | **NSP** and **ESP** files | Relevant processing paths were found in the privately reviewed archive |
-| **MaxxECU** | Encrypted calibration and configuration files | A dedicated processing path was found in the reviewed archive |
-| **MoTeC Gold Box** | Calibration files associated with Gold Box systems | Researcher-reported use of the same high-level methodology as Haltech and MaxxECU; source code not supplied |
-| **MoTeC M1 / M1 Tune** | M1 Tune calibration files | Researcher-reported, more complex unpacking and recovery of data identical to the original calibration content; reverse engineering takes additional time; source code not supplied |
+تشمل مجالات البحث **Haltech NSP وESP، وMaxxECU، وMoTeC Gold Box، وMoTeC M1 Tune**. وبحسب الاختبارات التي أجريتها، يمكن معالجة بعض الملفات المتوافقة خلال ثوانٍ، في حين يتطلب **MoTeC M1** بحثًا أكثر تعقيدًا ووقتًا إضافيًا لتفكيك الملفات وتحليلها والتحقق من البيانات المستعادة.
 
-**Clarification:** According to my research account, **MoTeC Gold Box** applies the same overall methodology used for **Haltech and MaxxECU**, adapted to the relevant file structure. **MoTeC M1 Tune**, by contrast, involves a more complex reverse-engineering process for unpacking files and recovering the original data; analyzing and verifying an individual case can take additional time. The private MoTeC engine source code was not made available for independent review. These statements do not imply identical encryption methods across manufacturers or universal compatibility.
+أؤكد، بصفتي الباحث والمطوّر، أن هدفي ونتيجة اختبارات الملفات المتوافقة التي اجتازت التحقق هو **الحفاظ على بيانات المعايرة الأصلية بنسبة 100%**، وإنتاج ملفات يمكن فتحها بواسطة برامج البرمجة الرسمية وتجهيزها للتفليش على وحدات ECU المطابقة. تُعرض هذه النتيجة بصفتها **تأكيدًا بحثيًا صادرًا مني**، لا نتيجة تحقق مستقل منشور يشمل جميع الأجهزة والإصدارات.
 
-### High-level data-recovery architecture
+**الكلمات المفتاحية:** ECU؛ الهندسة العكسية؛ تشفير ملفات المعايرة؛ سلامة البيانات؛ إعادة بناء الملفات؛ Haltech؛ MaxxECU؛ MoTeC.
 
-A modular design separates shared controls from specialized file-family engines:
+## 1. نطاق الدراسة
 
-1. **Input validation:** Check file integrity, size, and initial structure while preserving the reference copy.
-2. **File classification:** Identify the file family and protection state without relying only on the filename extension.
-3. **Structural analysis:** Characterize data sections and consistency relationships at a conceptual level.
-4. **Dedicated processing:** Recover analyzable information from compatible samples using an undisclosed proprietary mechanism.
-5. **Output representation:** Prepare the resulting data according to the applicable file format, where feasible.
-6. **Verification and error handling:** Check structural consistency, distinguish valid output from unsupported or failed cases, and record processing status and duration.
+| المنصة | الملفات أو النظام | المسار البحثي | أساس المعلومات |
+|:---|:---|:---|:---|
+| **Haltech** | **NSP / ESP** | تحليل الحاويات والبيانات المحمية وإعادة إنتاج الملفات المتوافقة | ظهرت مسارات معالجة في مراجعة ساكنة لشيفرة مشروع خاص |
+| **MaxxECU** | ملفات المعايرة والإعدادات المشفرة | محرك متخصص لاستعادة البيانات وإعادة تمثيل المخرجات | ظهر مسار مخصص في الشيفرة التي جرت مراجعتها |
+| **MoTeC Gold Box** | ملفات المعايرة المرتبطة بأنظمة Gold Box | **المنهجية الهندسية العامة نفسها** المستخدمة في Haltech وMaxxECU، مع تكييفها للصيغة | نتائج يذكرها الباحث؛ الشيفرة غير متاحة للمراجعة |
+| **MoTeC M1 / M1 Tune** | ملفات المعايرة الخاصة بمنصة M1 | **آلية تحليل وتفكيك أكثر تعقيدًا** لاستخراج بيانات مطابقة لمحتوى المعايرة الأصلي | نتائج يذكرها الباحث؛ الشيفرة غير متاحة للمراجعة |
 
-These are **functional stages, not an explanation of how protections are bypassed**. No keys, exact detection indicators, algorithms, or implementation details are disclosed.
+لا تعني هذه القائمة دعم **جميع** إصدارات الملفات أو الوحدات التابعة لهذه المنصات، ولا تعني تطابق آليات الحماية بين الشركات.
 
-### Observations and verification limits
+### 1.1. تمييز مساري MoTeC
 
-A **static review** of the available private project archive identified Haltech and MaxxECU processing paths, input classification, output preparation, structural checks, failure handling, time limits, and temporary-file management.
+- **Gold Box:** يطبق، وفقًا لنتائجي البحثية، سير العمل العام نفسه المستخدم مع Haltech وMaxxECU، مع اختلاف التفاصيل اللازمة لقراءة كل نوع من الملفات ومعالجته.
+- **M1 Tune:** يمثل المسار الأكثر تعقيدًا؛ فقد توصلت إلى آلية بحثية تسمح بتفكيك الملفات واستخراج بيانات المعايرة المطابقة للأصل في الحالات التي نجحت معالجتها. ويمكن أن يستغرق تحليل ملف أو إصدار جديد والتحقق من نتيجته وقتًا أطول من معالجة الملفات المدعومة مسبقًا.
 
-The review **did not run the engines against real calibration samples** or establish universal compatibility in official tuning software. **MoTeC Gold Box and M1 engine code was not included**; those capabilities are described on the researcher's account.
+**ملاحظة منهجية:** هذا توصيف للنتائج المعلنة من الباحث. لم تُرفق محركات MoTeC للمراجعة المستقلة في المواد التي خضعت للفحص.
 
-### Protection characterization, data integrity, and performance
+## 2. السؤال البحثي والأهداف
 
-The research distinguishes **file-family identification**, **protection characterization**, and **validation of recovered data**. Recognizing a file format does not by itself prove every protected file can be processed.
+**السؤال المركزي:** كيف يمكن تحليل ملفات معايرة ECU المشفرة، وفهم خصائص الحماية المرتبطة بصيغتها، واستعادة المعلومات وإعادة إنتاج ملف قابل للاستخدام، دون تغيير غير مقصود في بيانات المعايرة؟
 
-The researcher reports that the **MoTeC M1** unpacking approach can recover data **identical to the original calibration content** for successfully analyzed files. However, preservation of calibration values and **byte-for-byte identity of the encrypted container** are different claims: the file representation may differ while the underlying data remains unchanged. Structural checks alone do not establish 100% preservation of every calibration field; independent substantiation requires controlled, reproducible comparisons for specified samples and versions.
+تركز الدراسة على خمسة أهداف:
 
-### Reconstructed files, official software compatibility, and ECU flashing
+1. تصنيف عائلات ملفات ECU بالاستناد إلى بنيتها، وليس إلى امتداد اسم الملف وحده.
+2. توصيف خصائص التشفير أو الحماية ومستواها عندما تسمح الأدلة الفنية بذلك.
+3. استعادة بيانات الملفات المتوافقة بواسطة **محرك متخصص لكل عائلة**.
+4. إعادة إنشاء ملف ناتج متسق مع البنية التي تتوقعها برامج المعايرة الأصلية.
+5. التحقق من سلامة البيانات وفصل حالات النجاح وعدم التوافق والفشل.
 
-My engines are intended not only to recover information from encrypted files, but also to **reconstruct usable output files** in the format expected by the corresponding manufacturer's official tuning application.
+## 3. المنهجية والمعمارية العامة
 
-**Researcher's integrity assurance:** I strongly stand behind the **100% preservation of original calibration data for compatible outputs that have passed the engine's validation procedures**, including unchanged calibration values, tables, and configuration settings. Based on my research results, such files can be reopened in their **original tuning software** and prepared for **flashing to a matching ECU using the manufacturer's standard tools and procedures**.
+تستخدم المنظومة تصميمًا معياريًا يفصل بين الطبقة المشتركة لإدارة المعالجة والمحركات الخاصة بكل صيغة.
 
-**Scope of this assurance:** The 100% claim concerns **preserved calibration content**, not byte-for-byte identity with the original encrypted container; protection metadata or file packaging may necessarily differ. Actual opening and ECU flashing also depend on the ECU model, firmware, software version, file validity, and manufacturer checks. No independent test dataset establishing universal flash success is presented here. Every generated file should therefore be verified in the official software and checked against the target ECU configuration before programming.
+```text
+Authorized input file
+        |
+        v
+Input validation and preservation
+        |
+        v
+File-family identification
+        |
+        v
+Structural and protection characterization
+        |
+        v
+Dedicated file-family processing engine
+        |
+        v
+Output reconstruction
+        |
+        v
+Integrity / compatibility checks
+        |
+        v
+Validated output or documented failure
+```
 
-Non-sensitive metrics suitable for future disclosure include file family/version, authorized sample counts, processing duration, successful and unsupported cases, structural verification results, and summaries of relevant calibration-field comparisons without publishing confidential values.
+**3.1. التحقق من الإدخال:** فحص نوع الملف وحجمه وبنيته الأولية، مع الحفاظ على النسخة الأصلية للمقارنة.
 
-### Intellectual property and responsible disclosure
+**3.2. تحديد العائلة:** اختيار مسار Haltech أو MaxxECU أو MoTeC الملائم، بناءً على خصائص الملف التي يمكن التعرف عليها.
 
-Implementation methods remain proprietary. This repository does **not** distribute source code or executable engines, cryptographic secrets, precise indicators, protection-bypass details, protected customer files, or third-party proprietary software.
+**3.3. التحليل البنيوي:** دراسة أقسام البيانات والعلاقات الداخلية ومؤشرات الاتساق، دون نشر البصمات الدقيقة أو إجراءات تجاوز الحماية.
 
-Research is limited to files I am authorized to examine and must respect intellectual-property rights, licenses, contractual obligations, and applicable law.
+**3.4. المعالجة المتخصصة:** استخدام محرك منفصل للتعامل مع الملفات المتوافقة من العائلة المختارة. تظل تفاصيل هذه المحركات ملكية تقنية خاصة.
 
-**For research correspondence and potential institutional collaboration:** https://ahmad0dev.github.io
+**3.5. إعادة البناء:** إعداد ملف ناتج وفق متطلبات الصيغة المدروسة، مع مراعاة الحفاظ على بيانات المعايرة.
 
-**In the future, I may share my findings and technology to which I hold the necessary rights with competent official authorities, manufacturers, or qualified research institutions**, subject to appropriate legal review and, where applicable, NDAs or institutional licensing and technology-transfer arrangements.
+**3.6. فحوص النتائج:** مراجعة سلامة البنية ومؤشرات التكافؤ وإظهار حالة المعالجة، مع التمييز بين النجاح والملفات غير المدعومة.
 
-**No unlocking orders, paid services, or free file-processing services are accepted through this repository.**
+> **حد الإفصاح:** يوضح هذا القسم وظائف المنظومة ومراحلها فقط. لا يتضمن شيفرة أو مفاتيح أو خوارزميات أو تفاصيل تسمح باستنساخ آلية فك الحماية.
+
+## 4. النتائج والقدرات البحثية
+
+### 4.1. محركات متخصصة وقابلة للتوسّع
+
+صممتُ محركات مستقلة بحسب عائلة الملفات بدل الاعتماد على فرضية أن جميع الشركات تستخدم صيغة أو خوارزمية واحدة. وتتيح المعمارية المشتركة توحيد إدارة الإدخال والمخرجات والتحقق، مع الاحتفاظ بتنفيذ متخصص لكل منصة.
+
+### 4.2. التعرّف على نوع الحماية
+
+تتضمن المنظومة القدرة على التعرّف على نوع الملف وخصائص حمايته ومستواها **عندما تتوفر مؤشرات قابلة للتحديد**. ولا يُعد التعرف على الصيغة وحده دليلًا على نجاح فك حماية كل ملف ينتمي إليها.
+
+### 4.3. زمن المعالجة
+
+أظهرت اختباراتي الخاصة أن **بعض العينات المتوافقة** يمكن معالجتها خلال ثوانٍ. ولا تنطبق هذه المدة بالضرورة على **MoTeC M1**، حيث يمكن أن تستلزم دراسة البنية والهندسة العكسية والتحقق وقتًا إضافيًا. لم يُنشر هنا معيار أداء مستقل أو معدل نجاح شامل.
+
+### 4.4. إعادة إنشاء ملفات قابلة للاستخدام
+
+لا يقتصر العمل على إظهار محتوى الملف بعد فك حمايته، بل يشمل **إعادة إنشاء ملفات تتوافق مع برامج المعايرة الأصلية** للأنظمة التي تدعمها المحركات، بحيث يمكن فتحها والتعامل معها في بيئتها الرسمية.
+
+وبحسب النتائج التي أؤكدها من اختباراتي، يمكن كذلك إعداد الملفات المتوافقة **لتفليش وحدات ECU المطابقة** عبر برامج وأدوات الشركة المصنعة وإجراءاتها المعتادة.
+
+## 5. ضمان سلامة بيانات المعايرة وحدوده
+
+**إقرار الباحث بشأن سلامة البيانات**
+
+> أؤكد بقوة الحفاظ على **100% من بيانات المعايرة الأصلية** في الملفات المتوافقة التي نجحت معالجتها واجتازت فحوص التحقق الخاصة بالمحرك، بما يشمل القيم والجداول والإعدادات التي لم يُقصد تغييرها. ويستهدف المحرك إعادة إنتاج ملف قابل للفتح في البرنامج الرسمي وتجهيزه للاستخدام مع وحدة ECU متوافقة.
+
+يجب تفسير هذا الإقرار وفق التمييز العلمي الآتي:
+
+| مفهوم التحقق | المقصود |
+|:---|:---|
+| **تكافؤ بيانات المعايرة** | حفظ القيم والجداول والإعدادات الأصلية ذات الصلة دون تغيير غير مقصود |
+| **التطابق الثنائي التام** | تطابق كل بايت في ملف المخرجات مع الحاوية الأصلية؛ **ليس هو الادعاء هنا** |
+| **التوافق مع البرنامج الرسمي** | قدرة البرنامج الأصلي على قراءة الملف الناتج للنسخ المدعومة |
+| **قابلية التفليش** | توافق الملف الناتج مع الوحدة المستهدفة والبرامج والعتاد وإجراءات الحماية والتحقق الخاصة بالشركة |
+
+قد تتغير حاوية الملف أو بيانات الحماية عند إعادة البناء، حتى لو بقيت بيانات المعايرة دون تغيير. كما أن **فتح ملف في برنامج المعايرة لا يثبت وحده نجاح تفليشه على وحدة ECU**. يجب التحقق من طراز الوحدة وإصدارها وسلامة الملف قبل البرمجة الفعلية.
+
+**حالة الإثبات:** نسبة 100% المذكورة أعلاه هي تأكيد صادر عن الباحث للعينات المتوافقة التي اجتازت تحقق المحرك؛ لا تتضمن هذه الوثيقة نتائج اختبار مستقلة منشورة تثبت هذا المستوى من الدقة أو نجاح التفليش عبر جميع الإصدارات.
+
+## 6. الأدلة المتاحة وحدود التقييم
+
+| نوع الدليل | ما أمكن تأكيده أو وصفه | ما لم يُثبت في هذا المنشور |
+|:---|:---|:---|
+| **المراجعة الساكنة — Haltech** | وجود مسارات لتحليل المدخلات ومعالجتها وتجهيز المخرجات والتحقق البنيوي | نجاح كل ملف أو توافق جميع الإصدارات رسميًا |
+| **المراجعة الساكنة — MaxxECU** | وجود مسار معالجة مخصص وإجراءات لإعادة تمثيل الإعدادات | التطابق الشامل لكل قيمة عبر جميع الملفات |
+| **إفادة الباحث — Gold Box** | تطبيق المنهجية العامة نفسها المستخدمة مع Haltech وMaxxECU | مراجعة المحرك الخاص أو قياس أدائه مستقلاً |
+| **إفادة الباحث — M1 Tune** | اكتشاف مسار تفكيك واستعادة البيانات الأصلية مع زيادة تعقيد التحليل | مراجعة المحرك الخاص أو إعادة إنتاج النتائج مستقلاً |
+| **التوافق والتفليش** | نتائج توافق يؤكدها الباحث على الملفات التي اختبرها | سجل منشور لاختبارات فتح وتفليش مستقل يغطي جميع الأنظمة |
+
+تقتصر المراجعة المشار إليها على **فحص ساكن للشيفرة المتاحة**؛ ولم تشمل في هذه المرحلة تشغيل المحركات على ملفات ECU فعلية. ولم تتوفر شيفرة محركات MoTeC Gold Box أو M1 ضمن المواد المراجعة.
+
+### 6.1. مقاييس قابلة للنشر مستقبلًا
+
+يمكن عرض نتائج أكثر قابلية للتحقق دون إفشاء التقنية الخاصة، مثل: عدد العينات المصرّح بها، ونسخ البرامج، وأزمنة المعالجة، ونسب نجاح القراءة، ونتائج مقارنة حقول المعايرة، ونتائج فتح المخرجات بالبرامج الرسمية، والتحقق من التفليش عند إجرائه في بيئة مناسبة ومصرّح بها.
+
+## 7. الاعتبارات القانونية والملكية الفكرية
+
+تمثل تفاصيل المحركات والخوارزميات والموارد التقنية المطورة جزءًا من المعرفة البحثية الخاصة. لذلك لا ينشر هذا المستودع:
+
+- الشيفرة المصدرية أو المحركات التنفيذية أو التعليمات التفصيلية لتجاوز الحماية.
+- المفاتيح وكلمات المرور والبصمات الدقيقة وأسرار التشغيل.
+- ملفات المعايرة المحمية أو أي بيانات سرية تخص أطرافًا أخرى.
+- المكونات البرمجية المملوكة للشركات المصنعة أو المواد غير المصرح بنشرها.
+
+يقتصر البحث على الملفات التي أملك حق فحصها أو لدي تصريح مناسب لدراستها، مع مراعاة حقوق الملكية الفكرية والتراخيص والاتفاقيات والقوانين ذات الصلة.
+
+**قد أشارك مستقبلًا ما توصلت إليه والمكونات التي أمتلك حقوقها مع الجهات الرسمية المختصة أو الشركات المصنعة أو المؤسسات البحثية المؤهلة**، وفق ترتيبات قانونية ومهنية مناسبة، بما فيها اتفاقيات السرية (**NDA**) أو تراخيص التقنية عند الاقتضاء.
+
+## 8. التواصل البحثي
+
+للمراسلات المتعلقة بالبحث أو التقييم العلمي أو التعاون المؤسسي:
+
+**[Ahmed Al-Khaldi — Personal Website](https://ahmad0dev.github.io)**
+
+**هذا المستودع ليس قناة لتقديم خدمات تجارية أو استقبال طلبات فك ملفات ECU.**
+
+---
+
+<a id="english"></a>
+
+# English Version
+
+## Abstract
+
+This research investigates reverse engineering and structural analysis of **encrypted or protected Electronic Control Unit (ECU) calibration files**. The work develops **dedicated processing engines for individual file families** within a shared research architecture, with the objective of identifying protection characteristics, recovering calibration data, and reconstructing output files compatible with original tuning applications where supported.
+
+The research covers **Haltech NSP and ESP, MaxxECU, MoTeC Gold Box, and MoTeC M1 Tune**. According to my own testing, some compatible samples can be processed **within seconds**. The **MoTeC M1** research path is more complex and can require additional time for file unpacking, reverse engineering, and verification.
+
+As the researcher and developer, I strongly affirm **100% preservation of original calibration content for compatible files that successfully pass engine validation**. I also report that supported output files can be opened in official tuning software and prepared for flashing to matching ECUs through manufacturer tools. These are **researcher-reported findings and assurances**, not independently published test results demonstrating universal performance or compatibility.
+
+**Keywords:** Electronic Control Unit; reverse engineering; encrypted calibration files; data integrity; file reconstruction; Haltech; MaxxECU; MoTeC.
+
+## 1. Research Scope
+
+| Platform | File family / system | Research approach | Evidence basis |
+|:---|:---|:---|:---|
+| **Haltech** | **NSP / ESP** | Protected-container and calibration analysis; compatible output reconstruction | Processing paths observed during static review of a private project archive |
+| **MaxxECU** | Encrypted tuning and configuration files | Dedicated engine for data recovery and structured output | Specialized processing path observed in reviewed code |
+| **MoTeC Gold Box** | Calibration files for Gold Box systems | **Same high-level engineering methodology** as Haltech and MaxxECU, adapted to the format | Researcher-reported; private engine not reviewed |
+| **MoTeC M1 / M1 Tune** | M1 platform calibration files | **More complex unpacking and reverse-engineering approach** for recovering original calibration content | Researcher-reported; private engine not reviewed |
+
+The scope does **not** imply compatibility with every ECU variant or software version, nor identical encryption mechanisms across manufacturers.
+
+### 1.1. Distinguishing the MoTeC Research Paths
+
+- **Gold Box:** According to my research findings, the engine uses the same general analytical workflow applied to Haltech and MaxxECU, with format-specific adaptations.
+- **M1 Tune:** This is the more complex research path. I report discovering a mechanism for unpacking M1 files and recovering calibration content identical to the original data in successfully analyzed cases. Analysis and verification of new files or versions may take considerably longer than routine processing of already supported formats.
+
+The private MoTeC engines were **not available for independent source review** in the materials examined for this overview.
+
+## 2. Research Question and Objectives
+
+**Central question:** How can protected ECU calibration files be characterized, their information recovered, and usable outputs reconstructed without unintended alteration of original calibration data?
+
+The principal objectives are to:
+
+1. Identify ECU file families from their structural characteristics rather than extensions alone.
+2. Characterize observable encryption or protection properties and levels when technically discernible.
+3. Recover information using a **dedicated engine for each supported file family**.
+4. Reconstruct output files that conform to the expectations of their corresponding original tuning applications.
+5. Validate data integrity and distinguish successful processing from unsupported or failed cases.
+
+## 3. Methodology and System Architecture
+
+The platform separates shared orchestration from specialized file-family engines.
+
+```text
+Authorized input file
+        |
+        v
+Input validation and preservation
+        |
+        v
+File-family identification
+        |
+        v
+Structural and protection characterization
+        |
+        v
+Dedicated file-family processing engine
+        |
+        v
+Output reconstruction
+        |
+        v
+Integrity / compatibility checks
+        |
+        v
+Validated output or documented failure
+```
+
+**3.1. Input validation:** Check the file type, size, and initial structure, retaining an unchanged reference copy.
+
+**3.2. Classification:** Select the relevant Haltech, MaxxECU, or MoTeC processing path from identifiable file characteristics.
+
+**3.3. Structural analysis:** Examine data sections, internal relationships, and consistency indicators at a non-implementation level.
+
+**3.4. Specialized processing:** Recover information from compatible inputs using dedicated proprietary engines.
+
+**3.5. Reconstruction:** Generate output conforming to the relevant file format, with the aim of preserving calibration data.
+
+**3.6. Verification:** Assess structural validity and expected equivalence, and report successful, unsupported, or failed cases distinctly.
+
+> **Disclosure boundary:** This section describes system functions, not the algorithms, secrets, or implementation steps used to defeat protections.
+
+## 4. Research Findings and Capabilities
+
+### 4.1. Dedicated and Extensible Engines
+
+The system uses a specialized engine for each file family rather than assuming that manufacturers share the same format or protection scheme. A common architecture standardizes input handling, output generation, and verification while preserving format-specific implementations.
+
+### 4.2. Protection Identification
+
+The platform is designed to identify file families and observable protection characteristics or levels **where available evidence permits**. Recognition of a file format does not itself demonstrate that every protected file of that type can be processed.
+
+### 4.3. Processing Time
+
+My testing indicates that **certain compatible samples** can be processed within seconds. This timing does not necessarily apply to **MoTeC M1**, whose unpacking, reverse engineering, and verification may require additional work. No independently benchmarked success rate or universal processing-time metric is presented.
+
+### 4.4. Usable File Reconstruction
+
+The research extends beyond extracting readable content. It includes **reconstructing files usable by their corresponding official tuning applications** in supported configurations.
+
+Based on my reported test results, compatible reconstructed files can also be prepared for **ECU flashing through the manufacturer's original software, tools, and procedures**, subject to the target ECU configuration.
+
+## 5. Calibration Integrity Assurance and Its Scope
+
+**Researcher's statement of assurance**
+
+> I strongly affirm **100% preservation of original calibration content in compatible files that have been successfully processed and validated by the engine**, including the original values, tables, and settings not intentionally modified. The engine is intended to reconstruct files that can be reopened in official tuning applications and prepared for use with matching ECUs.
+
+This assurance must be interpreted using the following technical distinctions:
+
+| Validation concept | Meaning |
+|:---|:---|
+| **Calibration-data equivalence** | Preserving relevant original calibration values, tables, and settings without unintended modification |
+| **Byte-for-byte file identity** | Identical bytes throughout the reconstructed file and the original encrypted container; **this is not the claim** |
+| **Official software compatibility** | Successful parsing and opening by the manufacturer's application for supported versions |
+| **ECU flash compatibility** | Compatibility with the target ECU, hardware and firmware versions, and manufacturer validation and programming controls |
+
+The original file container or protection metadata may change during reconstruction, even when calibration data remains intact. Moreover, **opening a file in tuning software does not by itself prove that an ECU can be safely or successfully flashed**. File validity, ECU model, firmware, and relevant manufacturer checks must be verified before programming.
+
+**Evidence status:** The 100% figure is the researcher's assurance for compatible samples that passed engine validation. This overview does not contain independent published evidence establishing that result or universal flash success across all ECU variants.
+
+## 6. Evidence and Evaluation Limitations
+
+| Evidence category | Observed or reported | Not established here |
+|:---|:---|:---|
+| **Static review — Haltech** | Code paths for input analysis, processing, output preparation, and structural checks | Universal file success or compatibility with every official software version |
+| **Static review — MaxxECU** | Specialized processing and settings-reconstruction paths | Preservation of every calibration field across all files |
+| **Researcher account — Gold Box** | Application of the same general methodology as Haltech and MaxxECU | Independent review or benchmarking of its private engine |
+| **Researcher account — M1 Tune** | More complex unpacking and recovery of original calibration data | Independent execution or reproducibility of the private engine |
+| **Official software / flashing** | Researcher-reported compatibility for tested outputs | Published independent opening and flashing tests across all systems |
+
+The referenced review was a **static examination of available source code**; the engines were not executed against real ECU samples as part of that review. The MoTeC Gold Box and M1 source code was not included in the reviewed materials.
+
+### 6.1. Potential Future Validation Metrics
+
+Evidence could be made more reproducible, without disclosing proprietary mechanisms, through authorized sample counts, file and software versions, processing times, documented successful and unsupported cases, calibration-field comparisons, official-application loading tests, and controlled ECU-flashing validation where authorized and appropriate.
+
+## 7. Intellectual Property, Legal Considerations, and Responsible Disclosure
+
+The engines, algorithms, and supporting research observations form part of my proprietary technical work. This repository therefore does **not** disclose:
+
+- Source code, executable engines, or instructions for reproducing protection bypasses.
+- Cryptographic keys, passwords, precise signatures, or operational secrets.
+- Protected calibration files, customer data, or third-party confidential materials.
+- Manufacturer-owned software components or other materials not authorized for publication.
+
+Research is restricted to files I am entitled or appropriately authorized to examine, and any further use or disclosure must respect intellectual-property rights, applicable licenses, contractual terms, and law.
+
+**I may share my findings and technology to which I hold the necessary rights with relevant official authorities, manufacturers, or qualified research institutions in the future**, subject to appropriate legal and professional arrangements, including nondisclosure agreements (**NDAs**) and technology-licensing arrangements where applicable.
+
+## 8. Research Correspondence
+
+For research inquiries, scientific evaluation, or potential institutional collaboration:
+
+**[Ahmed Al-Khaldi — Personal Website](https://ahmad0dev.github.io)**
+
+**This repository does not offer commercial file-unlocking services or accept ECU file-processing requests.**
+
+---
+
+<div align="center">
+
+**Encrypted ECU File Research** · Independent Technical Research Overview
+
+© 2026 Ahmed Al-Khaldi. Research summary; proprietary implementations are not published.
+
+[Back to top](#encrypted-ecu-file-research)
+
+</div>
